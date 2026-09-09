@@ -1,4 +1,4 @@
-const BASE_URL = "https://around-api.es.tripleten-services.com/v1";
+const BASE_URL = "https://api-around.allisons.org";
 
 function checkResponse(res) {
   if (res.ok) {
@@ -6,9 +6,7 @@ function checkResponse(res) {
   }
 
   return res.json().then((data) => {
-    return Promise.reject(
-      data.message || `Error: ${res.status}`
-    );
+    return Promise.reject(data.message || `Error: ${res.status}`);
   });
 }
 

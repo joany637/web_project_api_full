@@ -1,4 +1,4 @@
-const BASE_URL = 'https://se-register-api.en.tripleten-services.com/v1';
+const BASE_URL = 'https://api-around.allisons.org';
 
 function checkResponse(res) {
   if (res.ok) {
