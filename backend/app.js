@@ -30,6 +30,22 @@ mongoose
 
 // ✅ CORS habilitado
 app.use(cors());
+// Un array de dominios desde los cuales se permiten las solicitudes
+const allowedCors = [
+  'https://around.allisons.org',
+  'https://www.around.allisons.org',
+  //'localhost:3000'
+];
+
+app.use(function(req, res, next) {
+  const { origin } = req.headers; // guardar el origen de la solicitud en la variable 'origin'
+  // comprobar que el origen de la solicitud se mencione en la lista de los permitidos
+  if (allowedCors.includes(origin)) {
+    res.header('Access-Control-Allow-Origin', origin); // si el origen de la solicitud se menciona en la lista de los permitidos, se le permite el acceso
+  }
+
+  next();
+});
 // Parsear JSON
 app.use(express.json());
 
