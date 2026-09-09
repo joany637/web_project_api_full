@@ -2,6 +2,9 @@
 logs
 *.log
 npm-debug.log*
+.env
+request.log
+error.log
 
 # Directorio de dependencias
 node_modules

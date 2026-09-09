@@ -1,19 +1,25 @@
-const winston = require('winston');
+const winston = require("winston");
 
-const requestLogger = winston.createLogger({
-  level: 'info',
+const requestFileLogger = winston.createLogger({
+  level: "info",
   format: winston.format.json(),
-  transports: [
-    new winston.transports.File({ filename: 'request.log' })
-  ]
+  transports: [new winston.transports.File({ filename: "request.log" })],
 });
 
-const errorLogger = winston.createLogger({
-  level: 'error',
+const errorFileLogger = winston.createLogger({
+  level: "error",
   format: winston.format.json(),
-  transports: [
-    new winston.transports.File({ filename: 'error.log' })
-  ]
+  transports: [new winston.transports.File({ filename: "error.log" })],
 });
+
+const requestLogger = (req, res, next) => {
+  requestFileLogger.info(`${req.method} ${req.url}`);
+  next();
+};
+
+const errorLogger = (err, req, res, next) => {
+  errorFileLogger.error(err.stack || err.message);
+  next(err);
+};
 
 module.exports = { requestLogger, errorLogger };

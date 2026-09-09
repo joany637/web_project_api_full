@@ -29,7 +29,7 @@
   height: 24px;
   border: 1px solid;
   margin-left: 20px;
-  background: rgb(0, 0, 0) url('../images/lapiz.png') no-repeat center;
+  background: rgb(0, 0, 0) url("../images/lapiz.png") no-repeat center;
 }
 
 .edit-perfil:hover {
@@ -44,7 +44,7 @@
 .trash {
   width: 24px;
   border: 1px solid;
-  background: rgb(0, 0, 0) url('../images/trash.png') no-repeat center;
+  background: rgb(0, 0, 0) url("../images/basurero.png") no-repeat center;
 }
 
 /* ==== POPUP / MODAL BASE ==== */
@@ -115,13 +115,13 @@
 /* ==== BOTÓN CERRAR (X) — FUERA, BLANCA Y GRANDE ==== */
 .popup__close {
   position: absolute;
-  top: -35px;        /* Sube la X por encima del borde */
-  right: 0;          /* Pegada totalmente a la derecha */
+  top: -35px; /* Sube la X por encima del borde */
+  right: 0; /* Pegada totalmente a la derecha */
   background: none;
   border: none;
-  font-size: 36px;   /* Tamaño grande */
+  font-size: 36px; /* Tamaño grande */
   cursor: pointer;
-  color: #ffffff;    /* Color BLANCO */
+  color: #ffffff; /* Color BLANCO */
   line-height: 1;
   padding: 0;
   width: 32px;

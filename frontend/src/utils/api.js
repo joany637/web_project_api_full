@@ -1,4 +1,4 @@
-const BASE_URL = "https://api-around.allisons.org";
+const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
 function checkResponse(res) {
   if (res.ok) {
@@ -11,8 +11,7 @@ function checkResponse(res) {
 }
 
 function request(endpoint, options = {}) {
-  // Mantenemos tu token exactamente como está.
-  const token = "ff0984c5-e569-4c67-a9c9-6db7ea5e5c0e";
+  const token = localStorage.getItem("jwt");
 
   const headers = {
     "Content-Type": "application/json",
@@ -20,7 +19,7 @@ function request(endpoint, options = {}) {
   };
 
   if (token) {
-    headers.Authorization = token;
+    headers.Authorization = `Bearer ${token}`;
   }
 
   return fetch(`${BASE_URL}${endpoint}`, {

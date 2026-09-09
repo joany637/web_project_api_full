@@ -1,15 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from "react";
 
 export default function EditProfile({ onSubmit, currentUser }) {
-  const [name, setName] = useState('');
-  const [about, setAbout] = useState('');
-
-  useEffect(() => {
-    if (currentUser) {
-      setName(currentUser.name || '');
-      setAbout(currentUser.about || '');
-    }
-  }, [currentUser]);
+  const [name, setName] = useState(currentUser?.name || "");
+  const [about, setAbout] = useState(currentUser?.about || "");
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -57,10 +50,7 @@ export default function EditProfile({ onSubmit, currentUser }) {
 
       <span className="input-about-error popup__error"></span>
 
-      <button
-        type="submit"
-        className="popup__save"
-      >
+      <button type="submit" className="popup__save">
         Guardar
       </button>
     </form>

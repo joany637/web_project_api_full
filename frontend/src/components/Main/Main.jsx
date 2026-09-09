@@ -1,15 +1,15 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 
-import avatar from '../../images/hombre.jpg';
+import avatar from "../../images/hombre.jpg";
 
-import Card from './components/Card/Card';
-import Popup from './components/Popup/Popup';
-import ImagePopup from './components/ImagePopup/ImagePopup';
-import NewCard from './components/Form/NewCard/NewCard';
-import EditProfile from './components/Form/EditProfile/EditProfile';
-import EditAvatar from './components/Form/EditAvatar/EditAvatar';
+import Card from "./components/Card/Card";
+import Popup from "./components/Popup/Popup";
+import ImagePopup from "./components/ImagePopup/ImagePopup";
+import NewCard from "./components/Form/NewCard/NewCard";
+import EditProfile from "./components/Form/EditProfile/EditProfile";
+import EditAvatar from "./components/Form/EditAvatar/EditAvatar";
 
-import api from '../../utils/api';
+import api from "../../utils/api";
 
 export default function Main({ currentUser, onUpdateUser, onUpdateAvatar }) {
   const [cards, setCards] = useState([]);
@@ -21,13 +21,14 @@ export default function Main({ currentUser, onUpdateUser, onUpdateAvatar }) {
       return;
     }
 
-    api.getCards()
+    api
+      .getCards()
       .then((data) => {
-        console.log('TARJETAS RECIBIDAS:', data);
+        console.log("TARJETAS RECIBIDAS:", data);
         setCards(data.data || data);
       })
       .catch((err) => {
-        console.log('ERROR AL CARGAR TARJETAS:', err);
+        console.log("ERROR AL CARGAR TARJETAS:", err);
       });
   }, [currentUser]);
 
@@ -44,7 +45,10 @@ export default function Main({ currentUser, onUpdateUser, onUpdateAvatar }) {
   }
 
   function handleCardLike(card) {
-    const request = card.isLiked
+    const isLiked = card.likes?.some(
+      (like) => (like._id || like).toString() === currentUser?._id,
+    );
+    const request = isLiked
       ? api.dislikeCard(card._id)
       : api.likeCard(card._id);
 
@@ -54,10 +58,8 @@ export default function Main({ currentUser, onUpdateUser, onUpdateAvatar }) {
 
         setCards((currentCards) =>
           currentCards.map((currentCard) =>
-            currentCard._id === card._id
-              ? updatedCard
-              : currentCard
-          )
+            currentCard._id === card._id ? updatedCard : currentCard,
+          ),
         );
       })
       .catch((err) => {
@@ -66,12 +68,11 @@ export default function Main({ currentUser, onUpdateUser, onUpdateAvatar }) {
   }
 
   function handleCardDelete(cardId) {
-    api.deleteCard(cardId)
+    api
+      .deleteCard(cardId)
       .then(() => {
         setCards((currentCards) =>
-          currentCards.filter(
-            (card) => card._id !== cardId
-          )
+          currentCards.filter((card) => card._id !== cardId),
         );
       })
       .catch((err) => {
@@ -80,14 +81,12 @@ export default function Main({ currentUser, onUpdateUser, onUpdateAvatar }) {
   }
 
   function handleAddCard({ name, link }) {
-    api.createCard({ name, link })
+    api
+      .createCard({ name, link })
       .then((data) => {
         const newCard = data.data || data;
 
-        setCards((currentCards) => [
-          newCard,
-          ...currentCards,
-        ]);
+        setCards((currentCards) => [newCard, ...currentCards]);
 
         handleClosePopup();
       })
@@ -102,112 +101,83 @@ export default function Main({ currentUser, onUpdateUser, onUpdateAvatar }) {
         handleClosePopup();
       })
       .catch((err) => {
-        console.log('ERROR AL ACTUALIZAR PERFIL:', err);
+        console.log("ERROR AL ACTUALIZAR PERFIL:", err);
       });
   }
 
   function handleUpdateAvatar(avatarUrl) {
     onUpdateAvatar(avatarUrl)
       .then(() => {
-        console.log('✅ Avatar actualizado:', avatarUrl);
+        console.log("✅ Avatar actualizado:", avatarUrl);
       })
       .catch((err) => {
-        console.log('❌ Error al actualizar el avatar:', err);
+        console.log("❌ Error al actualizar el avatar:", err);
       });
     console.log(avatarUrl);
     handleClosePopup();
   }
 
   const newCardPopup = {
-    title: 'Nuevo lugar',
-    children: (
-      <NewCard onSubmit={handleAddCard} />
-    ),
+    title: "Nuevo lugar",
+    children: <NewCard onSubmit={handleAddCard} />,
   };
 
   const editProfilePopup = {
-    title: 'Editar perfil',
+    title: "Editar perfil",
     children: (
-      <EditProfile
-        onSubmit={handleUpdateProfile}
-        currentUser={currentUser}
-      />
+      <EditProfile onSubmit={handleUpdateProfile} currentUser={currentUser} />
     ),
   };
 
   const editAvatarPopup = {
-    title: 'Cambiar avatar',
-    children: (
-      <EditAvatar onSubmit={handleUpdateAvatar} />
-    ),
+    title: "Cambiar avatar",
+    children: <EditAvatar onSubmit={handleUpdateAvatar} />,
   };
 
   return (
     <main className="container">
-
       <section className="perfile">
         <div className="profile__container">
-
-        <img
-          src={
-            currentUser?.avatar
-              ? currentUser.avatar
-              : avatar
-          }
-          alt="Usuario"
-          className="perfile-img"
-        />
-        <button
-          className="edit__avatar"
-          type="button"
-          aria-label="Editar avatar"
-          onClick={() =>
-            handleOpenPopup(editAvatarPopup
-            )
-          }
-        />
+          <img
+            src={currentUser?.avatar ? currentUser.avatar : avatar}
+            alt="Usuario"
+            className="perfile-img"
+          />
+          <button
+            className="edit__avatar"
+            type="button"
+            aria-label="Editar avatar"
+            onClick={() => handleOpenPopup(editAvatarPopup)}
+          />
         </div>
 
         <div className="perfile-content">
-
           <div className="perfile-info">
-
             <h1 className="perfile-title">
-              {currentUser?.name || 'Jacques Cousteau'}
+              {currentUser?.name || "Jacques Cousteau"}
             </h1>
 
             <button
               className="edit-perfil"
               type="button"
               aria-label="Editar perfil"
-              onClick={() =>
-                handleOpenPopup(editProfilePopup)
-              }
+              onClick={() => handleOpenPopup(editProfilePopup)}
             ></button>
-
           </div>
 
-          <p className="perfile-info">
-            {currentUser?.about || 'Explorador'}
-          </p>
-
+          <p className="perfile-info">{currentUser?.about || "Explorador"}</p>
         </div>
 
         <button
           aria-label="Agregar tarjeta"
           className="add"
           type="button"
-          onClick={() =>
-            handleOpenPopup(newCardPopup)
-          }
+          onClick={() => handleOpenPopup(newCardPopup)}
         />
-
       </section>
 
       <section className="cards gallery">
-
         <ul className="cards__list">
-
           {cards
             .filter((card) => card)
             .map((card) => (
@@ -220,28 +190,20 @@ export default function Main({ currentUser, onUpdateUser, onUpdateAvatar }) {
                 currentUser={currentUser}
               />
             ))}
-
         </ul>
-
       </section>
 
       {popup && (
-        <Popup
-          onClose={handleClosePopup}
-          title={popup.title}
-        >
+        <Popup onClose={handleClosePopup} title={popup.title}>
           {popup.children}
         </Popup>
       )}
 
       {selectedCard && (
-        <Popup
-          onClose={() => setSelectedCard(null)}
-        >
+        <Popup onClose={() => setSelectedCard(null)}>
           <ImagePopup card={selectedCard} />
         </Popup>
       )}
-
     </main>
   );
 }

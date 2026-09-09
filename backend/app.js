@@ -1,7 +1,10 @@
 const express = require("express");
 const mongoose = require("mongoose");
+require("dotenv").config();
 const { celebrate, Joi, Segments, errors } = require("celebrate");
 const validator = require("validator");
+const cors = require("cors");
+
 const cardsRouter = require("./routes/cards"); // Quita comentario si tienes tarjetas
 
 // require('dotenv').config();
@@ -11,6 +14,13 @@ const usersRouter = require("./routes/users");
 const auth = require("./middlewares/auth");
 const errorHandler = require("./middlewares/errors");
 const { requestLogger, errorLogger } = require("./middlewares/logger");
+
+const allowedCors = [
+  "https://around.allisons.org",
+  "https://www.around.allisons.org",
+  "http://localhost:5173",
+  "http://localhost:3000",
+];
 // ✅ Función de validación de URL
 const validateURL = (value, helpers) => {
   if (validator.isURL(value)) {
@@ -22,34 +32,33 @@ const validateURL = (value, helpers) => {
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Conectar a MongoDB
-mongoose
-  .connect("mongodb://localhost:27017/web_db")
-  .then(() => console.log("✅ Conectado a MongoDB"))
-  .catch((err) => console.log("❌ Error de conexión:", err));
-
-// ✅ CORS habilitado
-app.use(cors());
-// Un array de dominios desde los cuales se permiten las solicitudes
-const allowedCors = [
-  'https://around.allisons.org',
-  'https://www.around.allisons.org',
-  //'localhost:3000'
-];
-
-app.use(function(req, res, next) {
-  const { origin } = req.headers; // guardar el origen de la solicitud en la variable 'origin'
-  // comprobar que el origen de la solicitud se mencione en la lista de los permitidos
+app.use((req, res, next) => {
+  const { origin } = req.headers;
   if (allowedCors.includes(origin)) {
-    res.header('Access-Control-Allow-Origin', origin); // si el origen de la solicitud se menciona en la lista de los permitidos, se le permite el acceso
+    res.header("Access-Control-Allow-Origin", origin);
   }
 
   next();
 });
+// Conectar a MongoDB
+mongoose
+  .connect(process.env.MONGODB_URI || "mongodb://localhost:27017/web_db")
+  .then(() => console.log("✅ Conectado a MongoDB"))
+  .catch((err) => console.log("❌ Error de conexión:", err));
+
+// ✅ CORS habilitado
+app.use(
+  cors({
+    origin: allowedCors,
+    methods: ["GET", "HEAD", "PUT", "PATCH", "POST", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  }),
+);
+
 // Parsear JSON
 app.use(express.json());
 
-// 📝 Registro de solicitudes
 app.use(requestLogger);
 
 // 🧪 Ruta de prueba de caída — ELIMÍNALA DESPUÉS DE LA REVISIÓN
@@ -104,8 +113,8 @@ app.use("/cards", cardsRouter); // Quita comentario si tienes tarjetas
 // ======================================
 // ⚠️ Manejo de errores
 // ======================================
-app.use(errorLogger);
 app.use(errors());
+app.use(errorLogger);
 app.use(errorHandler);
 
 // 🚀 Iniciar servidor
