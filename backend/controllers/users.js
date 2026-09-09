@@ -36,7 +36,7 @@ const createUser = (req, res) => {
       }
       return res
         .status(500)
-        .send({ message: 'Se ha producido un error en el servidor' });
+        .send({ message: 'Se ha producido un error en el servidor#1', err });
     });
 };
 
