@@ -10,7 +10,7 @@ API Express y cliente React para una aplicación de tarjetas con registro, auten
 4. Inicia la API con `npm run dev` desde `backend/`.
 5. Inicia Vite con `npm run dev` desde `frontend/`.
 
-El frontend usa `http://localhost:3000` por defecto. Para otro dominio, define `VITE_API_URL` en `frontend/.env`.
+El frontend usa `http://localhost:3000` durante el desarrollo y `https://api-around.allisons.org` en producción. Para otro dominio, define `VITE_API_URL` en `frontend/.env`.
 
 ## API
 

@@ -1,4 +1,16 @@
-const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+const BASE_URL =
+  import.meta.env.VITE_API_URL ||
+  (import.meta.env.DEV
+    ? "http://localhost:3000"
+    : "https://api-around.allisons.org");
+
+function requestWithConnectionError(url, options) {
+  return fetch(url, options).catch(() => {
+    throw new Error(
+      "No se pudo conectar con la API. Revisa VITE_API_URL y que el backend esté activo.",
+    );
+  });
+}
 
 function checkResponse(res) {
   if (res.ok) {
@@ -22,7 +34,7 @@ function request(endpoint, options = {}) {
     headers.Authorization = `Bearer ${token}`;
   }
 
-  return fetch(`${BASE_URL}${endpoint}`, {
+  return requestWithConnectionError(`${BASE_URL}${endpoint}`, {
     ...options,
     headers,
   }).then(checkResponse);

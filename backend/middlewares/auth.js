@@ -1,24 +1,24 @@
-const jwt = require("jsonwebtoken");
+const jwt = require('jsonwebtoken');
 
 const { NODE_ENV, JWT_SECRET } = process.env;
 
 const auth = (req, res, next) => {
   const { authorization } = req.headers;
 
-  if (!authorization || !authorization.startsWith("Bearer ")) {
-    return res.status(401).send({ message: "Se requiere autorización" });
+  if (!authorization || !authorization.startsWith('Bearer ')) {
+    return res.status(401).send({ message: 'Se requiere autorización' });
   }
 
-  const token = authorization.replace("Bearer ", "");
+  const token = authorization.replace('Bearer ', '');
   let payload;
 
   try {
     payload = jwt.verify(
       token,
-      NODE_ENV === "production" ? JWT_SECRET : "clave_secreta_desarrollo_123",
+      NODE_ENV === 'production' ? JWT_SECRET : 'clave_secreta_desarrollo_123',
     );
   } catch (err) {
-    return res.status(401).send({ message: "Token inválido" });
+    return res.status(401).send({ message: 'Token inválido' });
   }
 
   req.user = payload;

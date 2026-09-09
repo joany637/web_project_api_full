@@ -1,10 +1,10 @@
-const Card = require("../models/card");
+const Card = require('../models/card');
 const {
   BAD_REQUEST,
   FORBIDDEN,
   NOT_FOUND,
   INTERNAL_SERVER_ERROR,
-} = require("../utils/constants");
+} = require('../utils/constants');
 
 // GET /cards
 module.exports.getCards = (req, res) => {
@@ -14,7 +14,7 @@ module.exports.getCards = (req, res) => {
     })
     .catch(() => {
       res.status(INTERNAL_SERVER_ERROR).send({
-        message: "Error del servidor",
+        message: 'Error del servidor',
       });
     });
 };
@@ -32,20 +32,20 @@ module.exports.createCard = (req, res) => {
       res.status(201).send(card);
     })
     .catch((err) => {
-      if (err.name === "ValidationError") {
+      if (err.name === 'ValidationError') {
         return res.status(BAD_REQUEST).send({
-          message: "Datos de tarjeta no válidos",
+          message: 'Datos de tarjeta no válidos',
         });
       }
 
-      if (err.name === "CastError") {
+      if (err.name === 'CastError') {
         return res.status(BAD_REQUEST).send({
-          message: "Datos de tarjeta no válidos",
+          message: 'Datos de tarjeta no válidos',
         });
       }
 
       return res.status(INTERNAL_SERVER_ERROR).send({
-        message: "Error del servidor",
+        message: 'Error del servidor',
       });
     });
 };
@@ -58,25 +58,25 @@ module.exports.deleteCard = (req, res) => {
       if (card.owner.toString() !== req.user._id) {
         return res
           .status(FORBIDDEN)
-          .send({ message: "No puedes eliminar esta tarjeta" });
+          .send({ message: 'No puedes eliminar esta tarjeta' });
       }
       return card.deleteOne().then(() => res.send(card));
     })
     .catch((err) => {
-      if (err.name === "DocumentNotFoundError") {
+      if (err.name === 'DocumentNotFoundError') {
         return res.status(NOT_FOUND).send({
-          message: "Tarjeta no encontrada",
+          message: 'Tarjeta no encontrada',
         });
       }
 
-      if (err.name === "CastError") {
+      if (err.name === 'CastError') {
         return res.status(BAD_REQUEST).send({
-          message: "ID de tarjeta no válido",
+          message: 'ID de tarjeta no válido',
         });
       }
 
       return res.status(INTERNAL_SERVER_ERROR).send({
-        message: "Error del servidor",
+        message: 'Error del servidor',
       });
     });
 };
@@ -99,20 +99,20 @@ module.exports.likeCard = (req, res) => {
       res.send(card);
     })
     .catch((err) => {
-      if (err.name === "DocumentNotFoundError") {
+      if (err.name === 'DocumentNotFoundError') {
         return res.status(NOT_FOUND).send({
-          message: "Tarjeta no encontrada",
+          message: 'Tarjeta no encontrada',
         });
       }
 
-      if (err.name === "CastError") {
+      if (err.name === 'CastError') {
         return res.status(BAD_REQUEST).send({
-          message: "ID de tarjeta no válido",
+          message: 'ID de tarjeta no válido',
         });
       }
 
       return res.status(INTERNAL_SERVER_ERROR).send({
-        message: "Error del servidor",
+        message: 'Error del servidor',
       });
     });
 };
@@ -135,20 +135,20 @@ module.exports.dislikeCard = (req, res) => {
       res.send(card);
     })
     .catch((err) => {
-      if (err.name === "DocumentNotFoundError") {
+      if (err.name === 'DocumentNotFoundError') {
         return res.status(NOT_FOUND).send({
-          message: "Tarjeta no encontrada",
+          message: 'Tarjeta no encontrada',
         });
       }
 
-      if (err.name === "CastError") {
+      if (err.name === 'CastError') {
         return res.status(BAD_REQUEST).send({
-          message: "ID de tarjeta no válido",
+          message: 'ID de tarjeta no válido',
         });
       }
 
       return res.status(INTERNAL_SERVER_ERROR).send({
-        message: "Error del servidor",
+        message: 'Error del servidor',
       });
     });
 };

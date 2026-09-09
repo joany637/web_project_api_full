@@ -1,4 +1,16 @@
-const BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
+const BASE_URL =
+  import.meta.env.VITE_API_URL ||
+  (import.meta.env.DEV
+    ? "http://localhost:3000"
+    : "https://api-around.allisons.org");
+
+function request(url, options) {
+  return fetch(url, options).catch(() => {
+    throw new Error(
+      "No se pudo conectar con la API. Revisa VITE_API_URL y que el backend esté activo.",
+    );
+  });
+}
 
 function checkResponse(res) {
   if (res.ok) {
@@ -22,7 +34,7 @@ export function register({ email, password, name, about, avatar }) {
   }
 
   // ✅ Enviamos SOLO los campos que la API espera
-  return fetch(`${BASE_URL}/signup`, {
+  return request(`${BASE_URL}/signup`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -47,7 +59,7 @@ export function authorize({ email, password }) {
     });
   }
 
-  return fetch(`${BASE_URL}/signin`, {
+  return request(`${BASE_URL}/signin`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -61,7 +73,7 @@ export function checkToken(token) {
     return Promise.reject({ message: "Token no proporcionado" });
   }
 
-  return fetch(`${BASE_URL}/users/me`, {
+  return request(`${BASE_URL}/users/me`, {
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,

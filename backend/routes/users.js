@@ -1,14 +1,14 @@
-const router = require("express").Router();
-const { celebrate, Joi, Segments } = require("celebrate");
+const router = require('express').Router();
+const { celebrate, Joi, Segments } = require('celebrate');
 const {
   getCurrentUser,
   updateProfile,
   updateAvatar,
-} = require("../controllers/users");
+} = require('../controllers/users');
 
 // ✅ Ruta: Obtener datos del usuario actual
 router.get(
-  "/me",
+  '/me',
   celebrate({
     [Segments.HEADERS]: Joi.object({
       authorization: Joi.string().required(),
@@ -18,7 +18,7 @@ router.get(
 );
 
 router.patch(
-  "/me",
+  '/me',
   celebrate({
     [Segments.BODY]: Joi.object({
       name: Joi.string().min(2).max(30).required(),
@@ -29,7 +29,7 @@ router.patch(
 );
 
 router.patch(
-  "/me/avatar",
+  '/me/avatar',
   celebrate({
     [Segments.BODY]: Joi.object({
       avatar: Joi.string().uri().required(),
