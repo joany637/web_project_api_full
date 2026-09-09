@@ -1,0 +1,8 @@
+.footer{
+  width: 318px;
+  color: rgba(84, 84, 84, 1);
+  display: flex;
+  box-sizing: border-box;
+  padding: 0 0 10px 25px;
+
+}

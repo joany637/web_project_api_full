@@ -1,0 +1,394 @@
+/* ==== PERFIL ==== */
+.perfile {
+  display: flex;
+  color: rgba(255, 255, 255, 1);
+  font-family: "Inter";
+  margin: auto;
+  align-items: center;
+  padding: 40px 0 32px;
+}
+
+.perfile-img {
+  width: 120px;
+  border-radius: 50%;
+  overflow: hidden;
+  height: 120px;
+  object-fit: cover;
+  margin-right: 25px;
+  margin-left: 35px;
+}
+
+.perfile-info {
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+
+.edit-perfil {
+  width: 24px;
+  height: 24px;
+  border: 1px solid;
+  margin-left: 20px;
+  background: rgb(0, 0, 0) url('../images/lapiz.png') no-repeat center;
+}
+
+.edit-perfil:hover {
+  color: dimgray;
+}
+
+.edit-perfil2 {
+  width: 24px;
+  border: 1px solid;
+}
+
+.trash {
+  width: 24px;
+  border: 1px solid;
+  background: rgb(0, 0, 0) url('../images/trash.png') no-repeat center;
+}
+
+/* ==== POPUP / MODAL BASE ==== */
+.popup__description {
+  margin-top: 10px;
+  color: rgb(21, 18, 18);
+  font-size: 30px;
+  font-family: "Inter";
+  font-weight: 400;
+  line-height: 100%;
+}
+
+.popup {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup2 {
+  display: flex;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup_opened2 {
+  display: flex;
+  position: fixed;
+}
+
+/* ==== CONTENEDOR DEL MODAL ==== */
+.popup__container {
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 10px;
+  width: 350px;
+  max-width: 90%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  position: relative;
+  box-sizing: border-box;
+  /* NO usar overflow: hidden → cortaría la X */
+}
+
+.popup__container2 {
+  background-color: #ffffff;
+  padding: 25px;
+  border-radius: 10px;
+  width: 350px;
+  max-width: 90%;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+  position: relative;
+  box-sizing: border-box;
+}
+
+/* ==== BOTÓN CERRAR (X) — FUERA, BLANCA Y GRANDE ==== */
+.popup__close {
+  position: absolute;
+  top: -35px;        /* Sube la X por encima del borde */
+  right: 0;          /* Pegada totalmente a la derecha */
+  background: none;
+  border: none;
+  font-size: 36px;   /* Tamaño grande */
+  cursor: pointer;
+  color: #ffffff;    /* Color BLANCO */
+  line-height: 1;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s;
+}
+
+.popup__close:hover {
+  color: #cccccc;
+}
+
+.popup__close2 {
+  background: none;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 100px;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.popup__close2:hover {
+  color: dimgray;
+}
+
+/* ==== TÍTULOS ==== */
+.popup__title {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 25px;
+  color: #000;
+}
+
+.popup__title2 {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: black;
+}
+
+/* ==== INPUTS ==== */
+.popup__input {
+  display: block;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 25px;
+  padding: 8px 0;
+  font-size: 14px;
+  outline: none;
+  background: transparent;
+}
+
+.popup__input:invalid {
+  border-bottom: 1px solid red;
+}
+
+.popup__input:valid {
+  border-bottom: 1px solid green;
+}
+
+.popup__input_type_error {
+  border-bottom-color: red;
+}
+
+.form__input-error_active {
+  color: red;
+  font-size: 12px;
+  margin-top: 4px;
+  display: block;
+}
+
+.popup__input:focus {
+  border-bottom: 1px solid #000;
+}
+
+/* ==== INPUTS 2 ==== */
+.popup__input2 {
+  display: block;
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 20px;
+  padding: 10px 5px;
+  font-size: 16px;
+  outline: none;
+}
+
+.popup__input2:invalid {
+  border-bottom: 1px solid red;
+}
+
+.popup__input2:valid {
+  border-bottom: 1px solid green;
+}
+
+.popup__input2:focus {
+  border: 2px solid #007bff;
+  outline: none;
+}
+
+/* ==== BOTÓN GUARDAR ==== */
+.popup__save {
+  width: 100%;
+  padding: 14px;
+  font-size: 16px;
+  background: #000;
+  border: none;
+  border-radius: 3px;
+  color: white;
+  cursor: pointer;
+  margin-top: 5px;
+  transition: background 0.2s;
+}
+
+.popup__save:hover {
+  background: #333;
+  color: #fff;
+}
+
+.popup__save_disabled {
+  background-color: gray;
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+/* ==== POPUP IMAGEN AMPLIADA ==== */
+.popup3 {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup_opened {
+  display: flex;
+}
+
+.popup__container3 {
+  background-color: transparent;
+  padding: 0;
+  position: relative;
+}
+
+.popup__image {
+  max-width: 100%;
+  max-height: 70vh;
+  border-radius: 8px;
+}
+
+.popup__close3 {
+  position: absolute;
+  top: -35px;
+  right: 0;
+  background: none;
+  border: none;
+  font-size: 36px;
+  color: #fff;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ==== AVATAR ==== */
+.profile__container {
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  height: 120px;
+  margin-right: 25px;
+  margin-left: 35px;
+  display: flex;
+  flex-direction: column;
+}
+
+.profile__container:hover {
+  cursor: pointer;
+}
+
+.edit__avatar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  background-image: url("../images/lapiz.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 26px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.edit__avatar:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+/* ==== BOTÓN AGREGAR ==== */
+.add {
+  width: 150px;
+  height: 50px;
+  background: transparent url(/src/images/add-icon.svg) center no-repeat;
+  background-size: 22px;
+  border-radius: 2px;
+  border: 2px solid #fff;
+  cursor: pointer;
+  margin-left: auto;
+}
+
+.add:hover {
+  color: dimgray;
+}
+
+.img {
+  width: 10px;
+  padding: 5px;
+  display: flex;
+  align-items: center;
+}
+
+/* ==== RESPONSIVE ==== */
+@media screen and (max-width: 960px) {
+  .perfile {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+  .perfile-info {
+    flex-direction: column;
+    margin-top: 15px;
+  }
+  .edit-perfil {
+    margin: 15px 0 0 0;
+  }
+  .add {
+    margin-left: 0;
+    margin-top: 20px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .popup__container,
+  .popup__container2 {
+    width: calc(100% - 40px);
+    padding: 20px;
+  }
+  .popup__title {
+    font-size: 18px;
+  }
+  .popup__close {
+    top: -30px;
+    font-size: 28px;
+  }
+}

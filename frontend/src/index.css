@@ -1,0 +1,31 @@
+@import url('./vendor/fonts.css');
+@import url('./vendor/normalize.css');
+@import url('./blocks/page.css');
+@import url('./blocks/header.css');
+@import url('./blocks/content.css');
+@import url('./blocks/profile.css');
+@import url('./blocks/gallery.css');
+@import url('./blocks/footer.css');
+@import url('./blocks/cards.css');
+@import url('./blocks/card.css');
+@import url('./blocks/container.css');
+@import url('./blocks/InfoTooltip.css');
+@import url('./blocks/login.css');
+@import url('./blocks/Register.css');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #000000;
+  color: #ffffff;
+  font-family: "Inter", Arial, sans-serif;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}

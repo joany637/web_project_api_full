@@ -1,0 +1,75 @@
+.card {
+  font-family: 'Inter', Arial, sans-serif;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+.card__title {
+  max-width: 220px;
+  font-size: 24px;
+  font-weight: 900;
+  line-height: 29px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin: 0;
+  color: #121111;
+}
+.card__description {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f1ecec;
+  padding: 25px 15px 31px 21px;
+}
+.card__image {
+  min-height: 282px;
+  max-height: 282px;
+  object-fit: cover;
+}
+.card__like {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.card__like-count {
+  font-size: 13px;
+  text-align: center;
+}
+.card__like-button {
+  width: 21px;
+  height: 19px;
+  background-size: 21px 18px;
+  border: none;
+  padding: 0;
+  margin: 0;
+}
+.card__like-button:hover {
+  opacity: 0.5;
+  cursor: pointer;
+}
+.card__delete-button {
+  width: 18px;
+  height: 18px;
+  /* ✅ Ruta con ../../ y nombre EXACTO del archivo */
+  background: url('../images/basurero.png') center no-repeat;
+  background-size: contain;
+  border: none;
+  cursor: pointer;
+  position: absolute;
+  top: 18px;
+  right: 15px;
+  padding: 0;
+  margin: 0;
+}
+.card__delete-button_is-visible {
+  display: block;
+}
+.card__delete-button:hover {
+  opacity: 0.6;
+}
+.card__like-button_is-active {
+  background-size: 21px 18px;
+}

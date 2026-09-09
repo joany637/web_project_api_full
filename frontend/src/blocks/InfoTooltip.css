@@ -1,0 +1,80 @@
+.tooltip {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.tooltip_opened {
+  opacity: 1;
+  visibility: visible;
+}
+
+.tooltip__container {
+  background: rgb(30, 30, 30);
+  padding: 30px;
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 350px;
+  width: 100%;
+}
+
+.tooltip__close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.tooltip__icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  color: #fff;
+}
+
+.tooltip__icon_success {
+  background: #2be080;
+}
+
+.tooltip__icon_success::after {
+  content: "✓";
+}
+
+.tooltip__icon_fail {
+  background: #ff4062;
+}
+
+.tooltip__icon_fail::after {
+  content: "✕";
+}
+
+.tooltip__message {
+  color: #fff;
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 14px;
+  line-height: 18px;
+  text-align: center;
+  margin: 0;
+}
