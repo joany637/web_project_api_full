@@ -13,7 +13,7 @@ function Login({ onLogin }) {
   return (
     <main className="login">
       <form className="login__form" onSubmit={handleSubmit}>
-        <h2 className="login__title">Inicia sesión</h2>
+        <h2 className="login__title"> Bienvenido! Inicia sesión</h2>
         <input
           id="login-email"
           name="email"
