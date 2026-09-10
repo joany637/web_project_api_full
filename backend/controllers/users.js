@@ -26,6 +26,7 @@ const createUser = (req, res) => {
       return res.status(201).send(userData);
     })
     .catch((err) => {
+      console.log('❌ Error al crear usuario:', err);
       if (err.code === 11000) {
         return res
           .status(409)
